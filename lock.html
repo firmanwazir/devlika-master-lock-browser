@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devlika Master Lock - Kunci Browser</title>
+  <link rel="stylesheet" href="lock.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-grid"></div>
+
+  <main class="lock-wrapper">
+    <div class="lock-card" id="lockCard">
+      <!-- Header with Devlika Lock Logo -->
+      <div class="card-header">
+        <div class="logo-shield">
+          <div class="shield-pulse"></div>
+          <svg class="shield-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="18" width="32" height="24" rx="6" fill="url(#paint0_linear)" stroke="#FF7629" stroke-width="2"/>
+            <path d="M16 18V13C16 8.58172 19.5817 5 24 5C28.4183 5 32 8.58172 32 13V18" stroke="#FFA366" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="24" cy="28" r="3.5" fill="#0E1017"/>
+            <path d="M24 31.5V36" stroke="#0E1017" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="paint0_linear" x1="8" y1="18" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FF5500"/>
+                <stop offset="1" stop-color="#FF7629"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="brand-title">Devlika Master Lock</h1>
+        <p class="brand-subtitle" id="statusSubtitle">Browser terkunci demi privasi Anda</p>
+        <div id="lockModeBadge" class="mode-badge hidden">
+          <span class="mode-icon" id="lockModeIcon">🔒</span>
+          <span id="lockModeText">Tab Terkunci</span>
+        </div>
+      </div>
+
+      <!-- VIEW 1: UNLOCK FORM (Standard) -->
+      <section id="unlockSection" class="view-section active">
+        <form id="unlockForm" autocomplete="off">
+          <div class="form-group">
+            <label for="unlockPassword" class="form-label">Masukkan Master Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input 
+                type="password" 
+                id="unlockPassword" 
+                class="form-input" 
+                placeholder="Kata sandi..." 
+                autofocus 
+                required
+              />
+              <button type="button" class="btn-toggle-eye" id="btnToggleUnlockEye" title="Lihat/Sembunyikan Sandi">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+            <div id="capsLockWarning" class="alert-caps hidden">
+              ⚠️ Caps Lock Aktif!
+            </div>
+          </div>
+
+          <div id="unlockMessage" class="feedback-msg hidden"></div>
+
+          <!-- Cooldown timer display -->
+          <div id="cooldownBox" class="cooldown-box hidden">
+            <div class="cooldown-spinner"></div>
+            <span id="cooldownText">Coba lagi dalam 30 detik...</span>
+          </div>
+
+          <button type="submit" id="btnUnlockSubmit" class="btn-primary">
+            <span class="btn-text" id="btnUnlockText">Buka Kunci Browser</span>
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <button type="button" id="btnCancelUnlock" class="btn-cancel hidden">
+            ✕ Batal & Tutup Tab Ini
+          </button>
+        </form>
+
+        <!-- Hint Section -->
+        <div class="hint-wrapper" id="hintSection">
+          <button type="button" class="btn-link" id="btnShowHint">
+            💡 Lupa kata sandi? Tampilkan petunjuk
+          </button>
+          <div class="hint-content hidden" id="hintContent">
+            <span class="hint-label">Petunjuk Sandi:</span>
+            <span class="hint-text" id="hintText">-</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: SETUP FIRST TIME FORM -->
+      <section id="setupSection" class="view-section hidden">
+        <div class="setup-badge">
+          <span>✨ Pengaturan Pertama Kali</span>
+        </div>
+        <p class="setup-desc">Buat Master Password untuk melindungi browser Anda.</p>
+
+        <form id="setupForm" autocomplete="off">
+          <div class="form-group">
+            <label for="setupPassword" class="form-label">Master Password Baru</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input 
+                type="password" 
+                id="setupPassword" 
+                class="form-input" 
+                placeholder="Minimal 4 karakter" 
+                required 
+                minlength="4"
+              />
+              <button type="button" class="btn-toggle-eye" id="btnToggleSetupEye">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="setupConfirmPassword" class="form-label">Konfirmasi Kata Sandi</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <input 
+                type="password" 
+                id="setupConfirmPassword" 
+                class="form-input" 
+                placeholder="Ulangi kata sandi" 
+                required 
+                minlength="4"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="setupHint" class="form-label">Petunjuk Kata Sandi (Opsional)</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </span>
+              <input 
+                type="text" 
+                id="setupHint" 
+                class="form-input" 
+                placeholder="Contoh: Tanggal jadian, kota kelahiran"
+              />
+            </div>
+          </div>
+
+          <div id="setupMessage" class="feedback-msg hidden"></div>
+
+          <button type="submit" id="btnSetupSubmit" class="btn-primary">
+            <span class="btn-text">Aktifkan & Buka Browser</span>
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- Footer Info -->
+      <footer class="card-footer">
+        <div class="security-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Enkripsi Kriptografis PBKDF2 SHA-256</span>
+        </div>
+        <div class="dev-tag">
+          <span>Developed by <strong class="dev-name">devlika</strong></span>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script src="crypto.js"></script>
+  <script src="lock.js"></script>
+</body>
+</html>

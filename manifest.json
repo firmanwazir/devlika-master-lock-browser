@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Devlika Master Lock - Proteksi Kunci Browser",
+  "version": "1.0.0",
+  "author": "devlika",
+  "description": "Kunci browser dengan Master Password saat browser dibuka. Mencegah akses tab dan website sebelum memasukkan kata sandi. Dikembangkan oleh devlika.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "idle",
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "incognito": "spanning",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Devlika Master Lock",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "lock_browser": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Kunci browser sekarang"
+    }
+  }
+}

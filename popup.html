@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devlika Master Lock</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <div class="logo-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h2>Devlika Lock</h2>
+          <span class="badge-status">
+            <span class="status-dot"></span>
+            Aktif & Terlindungi
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button type="button" class="tab-btn active" data-tab="tabDashboard">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Utama</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="tabWebsites">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span>Website (<span id="lockedCountBadge">0</span>)</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="tabSettings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Setelan</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: DASHBOARD UTAMA -->
+    <main id="tabDashboard" class="tab-pane active">
+      <!-- Info Tab Aktif Saat Ini -->
+      <section class="current-site-card" id="currentSiteCard">
+        <div class="site-card-header">
+          <span class="site-tag">Tab Aktif</span>
+          <span class="site-domain" id="currentTabDomainDisplay">-</span>
+        </div>
+        <p class="site-title-preview" id="currentTabTitleDisplay">Memuat info tab...</p>
+
+        <div class="site-actions">
+          <button type="button" id="btnLockCurrentTab" class="btn-action-small">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Kunci Tab Ini</span>
+          </button>
+          <button type="button" id="btnLockCurrentDomain" class="btn-action-small">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="btnLockDomainText">Kunci Website Ini</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Kunci Total Seluruh Browser -->
+      <section class="section-action">
+        <button type="button" id="btnLockNow" class="btn-lock-now">
+          <div class="lock-now-content">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Kunci Seluruh Browser</span>
+          </div>
+          <kbd class="shortcut-tag">Ctrl+Shift+L</kbd>
+        </button>
+      </section>
+
+      <div class="context-tip">
+        <span>💡 Tips: Klik kanan di halaman web mana pun untuk mengunci tab atau domain secara instan.</span>
+      </div>
+    </main>
+
+    <!-- TAB 2: WEBSITE TERKUNCI -->
+    <main id="tabWebsites" class="tab-pane hidden">
+      <!-- Panduan Format URL/Link -->
+      <div class="format-help-box">
+        <div class="format-help-title">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Format yang didukung:</span>
+        </div>
+        <div class="format-help-badges">
+          <span class="fmt-badge" title="Mengunci seluruh website dan semua subhalamannya"><b>Domain:</b> youtube.com</span>
+          <span class="fmt-badge" title="Hanya mengunci subdomain tertentu"><b>Subdomain:</b> web.whatsapp.com</span>
+          <span class="fmt-badge" title="Hanya mengunci subhalaman spesifik"><b>Link:</b> facebook.com/messages</span>
+        </div>
+      </div>
+
+      <!-- Form Tambah Website -->
+      <div class="add-website-box">
+        <label for="inputNewDomain" class="setting-label">Tambah Website / Link Baru:</label>
+        <form id="formAddSite" class="form-add-domain">
+          <input 
+            type="text" 
+            id="inputNewDomain" 
+            placeholder="Ketik domain atau paste link..." 
+            required 
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div class="add-options-row">
+            <label class="checkbox-label" title="Centang jika ingin langsung aktif terkunci saat ditambahkan">
+              <input type="checkbox" id="checkNewSiteActive" checked />
+              <span class="checkbox-custom"></span>
+              <span>Langsung Aktifkan</span>
+            </label>
+            <button type="submit" id="btnAddDomain" class="btn-add">
+              + Tambah
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Header Daftar Website -->
+      <div class="sites-list-header">
+        <span>Daftar Website Terproteksi:</span>
+        <span id="activeCountDisplay" class="active-count-tag">0 Aktif</span>
+      </div>
+
+      <!-- Container Daftar Website -->
+      <div class="sites-list-container" id="sitesListContainer">
+        <!-- List item dynamically injected -->
+      </div>
+    </main>
+
+    <!-- TAB 3: PENGATURAN -->
+    <main id="tabSettings" class="tab-pane hidden">
+      <div class="setting-item">
+        <label for="selectAutoLock" class="setting-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Kunci Otomatis (Saat Komputer Diam):
+        </label>
+        <select id="selectAutoLock" class="select-input">
+          <option value="0">Nonaktif</option>
+          <option value="1">Setelah 1 Menit</option>
+          <option value="5">Setelah 5 Menit</option>
+          <option value="15">Setelah 15 Menit</option>
+          <option value="30">Setelah 30 Menit</option>
+          <option value="60">Setelah 1 Jam</option>
+        </select>
+      </div>
+
+      <!-- Change Password Accordion -->
+      <div class="accordion">
+        <button type="button" id="btnToggleChangePwd" class="accordion-trigger">
+          <div class="trigger-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 2l-2 2m-1-1l-3 3m1 1l-2 2m-2-2l-3 3m1 1l-2 2"></path>
+              <circle cx="7.5" cy="16.5" r="4.5"></circle>
+            </svg>
+            <span>Ganti Master Password</span>
+          </div>
+          <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <div id="changePwdContent" class="accordion-content hidden">
+          <form id="changePasswordForm">
+            <div class="form-field">
+              <label for="oldPassword">Kata Sandi Saat Ini</label>
+              <input type="password" id="oldPassword" placeholder="Sandi lama" required />
+            </div>
+
+            <div class="form-field">
+              <label for="newPassword">Kata Sandi Baru</label>
+              <input type="password" id="newPassword" placeholder="Min. 4 karakter" required minlength="4" />
+            </div>
+
+            <div class="form-field">
+              <label for="newHint">Petunjuk Sandi Baru (Opsional)</label>
+              <input type="text" id="newHint" placeholder="Contoh: Nama kucing" />
+            </div>
+
+            <div id="changeMessage" class="feedback-msg hidden"></div>
+
+            <button type="submit" id="btnSubmitChange" class="btn-secondary">
+              Simpan Kata Sandi Baru
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Credit -->
+    <footer class="popup-footer">
+      <div class="popup-dev-credit">
+        <span>Devlika Master Lock • by <b>devlika</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
